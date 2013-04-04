@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Throttle - Functional programming</title>
+
+</head>
+<body>
+	<script>
+	
+	function throttle(fn, time){
+
+		var last = 0;
+		return function(){
+			var now = new Date();
+			if((now-last)>time){
+				last = now;
+				return fn.apply(this, arguments);
+			}
+		}
+	}
+
+	var counter = 0,
+    inc = function(){counter++;};
+
+	inc = throttle(inc, 10);
+
+	for (var i=100000; i--;) {
+	  inc();
+	}
+
+	console.log(counter);; // ~6
+	</script>
+</body>
+</html>

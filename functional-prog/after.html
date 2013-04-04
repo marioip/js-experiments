@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>After - Functional programming</title>
+
+</head>
+<body>
+	<script>
+	
+	function after(fn, n){
+		var times = 0;
+		return function(){
+			times++;
+			if(times%n==0){
+				return fn.apply(this, arguments);
+			}
+		}
+	}
+
+	var counter = 0,
+    inc = function(){
+    	counter++;
+    };
+
+	inc = after(inc, 1000);
+
+	for (var i=100000; i--;) {
+	  inc();
+	}
+
+	console.log(counter);
+
+	</script>
+</body>
+</html>

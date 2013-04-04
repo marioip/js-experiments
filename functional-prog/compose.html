@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Compose - Functional programming</title>
+
+</head>
+<body>
+	<script>
+	
+	function compose(){
+		var fns = Array.prototype.slide.call(arguments);
+		return function(x){
+			var currentResult = x, fn;
+			for (var i=fns.length; i--;){
+				fn = fns[i];
+				currentResult = fn(currentResult);
+			}
+			return currentResult;
+		}
+	}
+
+	function multiplayer(x){
+		return function(y){
+			return x*y;
+		}
+	}
+
+	var randCien = compose(Math.floor, multiplayer(100), Math.random);
+
+	console.log(randCien);
+
+	</script>
+</body>
+</html>
