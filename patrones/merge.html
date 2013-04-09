@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Merge</title>
+</head>
+<body>
+
+<script>
+
+function merge() {
+  var slice = Array.prototype.slice,
+      sources = slice.call(arguments),
+      target = {};
+  sources.forEach(function(source) {
+    for (var p in source) if (source.hasOwnProperty(p)) {
+      target[p] = source[p];
+} });
+  return target;
+}
+
+</script>
+
+</body>
+</html>

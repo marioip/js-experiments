@@ -1,0 +1,43 @@
+
+
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>MiLib</title>
+</head>
+<body>
+
+<script>
+
+var MiLib = (function (myLib){
+
+  MiLib.namespace = function(names, fns){
+    names = names.split(".");
+    var myLib;
+
+    for(var i=0;i<names.length;i++){
+      if (names){ 
+        myLib = names[i]
+      }else{
+        myLib = {};
+      }
+    }
+
+    return MiLib;
+  }
+
+})(MiLib || {})
+
+
+MiLib.namespace('widgets.buttons.actionButtons', function(my) {
+  my.ok = new Widget({});
+  my.cancel = new Widget({});
+});
+
+</script>
+
+</body>
+</html>
+
+

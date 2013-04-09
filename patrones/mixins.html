@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>MiLib</title>
+</head>
+<body>
+
+<script>
+
+var Mixin = function() {};
+  Mixin.prototype = {
+  inspect: function() {
+    var output = [];
+    for(key in this) {
+      output.push(key + ': ' + this[key]);
+    }
+    return output.join(', ');
+  }
+};
+
+var Persona = Class.extend({
+  init: function(nombre) {
+    this.nombre = nombre;
+  }
+});
+
+function augment(target, source) {
+  for (var prop in source.prototype) {
+    if(!target.prototype[prop]) {
+      target.prototype[prop] = source.prototype[prop];
+    } 
+  }
+}
+
+augment(Persona, Mixin);
+
+var pepito = new Persona("Pepito");
+pepito.inspect();
+
+</script>
+
+</body>
+</html>
+
+
