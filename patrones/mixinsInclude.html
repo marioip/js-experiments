@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>MiLib</title>
+
+  <!--<script src="../lib/klass.js"></script>-->
+
+</head>
+<body>
+
+<script>
+
+var StaticModule = {
+  propiedadDeClase: "Soy una propiedad de clase",
+  included: function(klass) { console.log("Includido!"); }
+};
+
+var InstanceModule = {
+  diHola: function() { alert("HOLA!"); },
+  mixed: function(klass) { console.log("Mezclado!"); }
+};
+
+var MiClase = Class.extend({
+  
+  Class.extend = this.extend;
+});
+
+MiClase.include(StaticModule);
+MiClase.mixin(InstanceModule);
+
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Observable</title>
+
+	<script src="../lib/klass.js"></script>
+
+</head>
+<body>
+
+<script>
+
+var Observable = {
+
+	subscribe: function(event, callback) {
+		console.log(event);
+		if(!this.observers){this.observers = []};
+		var e = {event: event, callback: callback};
+		this.observers.push(e);
+		this.publish(event);
+	},
+	unsubscribe: function(event, callback) {
+		for (var i=0; i<this.observers.length; i++){
+			if(this.observers[i].event == event && this.observers[i].callback == callback){
+				var pos = this.observers.indexOf( this.observers[i] );
+				this.observers = observers.splice( pos, 1 );
+			}
+		}
+	},
+	publish: function(event) {
+		this.observers.forEach(function(event) { callback });
+	}
+
+};
+
+var Input = Class.extend({
+
+  init: function(){
+
+  }
+
+  getValue: function() {
+    return this.value;
+  },
+  setValue: function(v) {
+    this.value = v;
+    this.publish(v);
+  },
+  onChange: function(cb) {
+    this.observers.push(cb);
+  },
+  publish: function(cb) {
+    this.observers.forEach(function(o) { o(cb); });
+  }
+
+});
+
+var InputView = Class.extend({
+  init: function(input) {
+    this.input.subscribe('change', bind(this, this.update));
+    this.input.subscribe('invalid', bind(this, this.invalid));
+  },
+  update: function(newValue) {
+    console.log("CHANGED: " + newValue);
+  },
+  invalid: function(value) {
+    console.log("El valor " + value + " es invalido!" );
+  }
+});
+
+var input = new Input(); 
+var observer = new InputView(input);
+
+InputView(Observable.subscribe());
+
+</script>
+
+</body>
+</html>
