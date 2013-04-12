@@ -23,7 +23,8 @@ var Producto = ProJS.Model.extend({
 
 });
 
-var p = new Producto("sombrero");
+var p = new Producto("jersey");
 var atrs = {nombre:"Camiseta",categoria:"camisetas",precio:20};
+
 p.set(atrs,{validate: true});
 console.log("get"+p.get());

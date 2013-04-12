@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Observable</title>
+
+  <link rel="stylesheet" type="text/css" href="../lib/css/foundation.css">
+
+	<script src="../lib/js/prelude.js"></script>
+  <script src="../lib/js/foundation.js"></script>
+
+  <style type="text/css">
+    #main{
+      margin-top: 20px;
+    }
+  </style>
+
+</head>
+<body>
+
+<form>
+
+  <div class="row" id="main">
+
+    <div class="four columns">
+
+      <input type="text" name="name" id="name" placeholder="Insert your name">
+      <input type="submit" value="Submit" id="submit" class="button secondary"> 
+
+    </div>
+
+  </div>
+
+</form>
+
+<script>
+
+var Input = R.Class.extend({
+
+  init: function(input){
+    this.input = input;
+
+  },
+
+  getValue: function() {
+    return this.value;
+  },
+  setValue: function(v) {
+    this.value = v;
+    console.log("value"+this.value);
+  },
+  onClick: function(cb) {
+    console.log("cb"+cb);
+    // R.Observable.on('onClick', this.doIt(cb), this.input);
+  },
+  doIt: function(cb){
+    console.log("callback cb="+cb);
+  }
+
+});
+
+var InputView = R.Class.extend({
+
+  init: function(input) {
+    this.input = input;
+    R.Observable.on('onClick', this.update(input.getValue()), this.input);
+  },
+  update: function(newValue) {
+    console.log("CHANGED: " + newValue);
+  },
+  invalid: function(value) {
+    console.log("El valor " + value + " es invalido!" );
+  }
+
+});
+
+var selector = $('#submit');
+
+var input = new Input(selector);
+
+var observerName = new InputView(input);
+input.setValue('name');
+
+// selector.on('click',input.onClick( function(){console.log('click over input');}) );
+
+</script>
+
+</body>
+</html>

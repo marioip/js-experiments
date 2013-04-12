@@ -3,6 +3,7 @@
 var Producto = ProJS.Model.extend({
   init: function() {
     this._super.apply(this, arguments);
+    console.log("dentro producto");
   },
   defaults: {
     nombre: "Producto sin nombre",
@@ -31,7 +32,7 @@ var Producto = ProJS.Model.extend({
 
 var ListadoProductos = ProJS.Collection.extend({
 
-  model: Producto
+  model: Producto,
 
 });
 
@@ -63,6 +64,7 @@ var VistaListado = ProJS.View.extend({
   template: $("#template-producto").html(),
   render: function(){
     var data = this.model.toJSON();
+    data.categoria = data.get("categoria");
     this.$el.html( _.template(this.template, data) );
     return this;
   }
@@ -73,6 +75,29 @@ var VistaListado = ProJS.View.extend({
 
 $(function() {
 
-  /* ??? */
+  // Detalle de productos
+
+  var producto = new Producto({
+    nombre: "Ribera del Duero",
+    categoria: "Vinos",
+    pais: "España",
+    precio: 200
+  });
+
+  var listadoProductos = new ListadoProductos();
+
+  var vistaProducto = new VistaProducto({model: producto}).render();
+
+  $("#container").append(vistaProducto.el);
+
+  // Listado de productos
+
+  function cargaListado () {
+    $.get("/products", cargaPrimerProducto);
+  }
+
+  var vistaListado = new VistaListado({model: producto}).render();
+
+  $("#barra-lateral").append(vistaListado.el);
 
 });
